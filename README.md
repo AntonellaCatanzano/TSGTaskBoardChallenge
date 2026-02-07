@@ -77,8 +77,8 @@ Requisitos previos
 Arranque local (rápido)
 -----------------------
 1. Clona y abre la solución:
-   - git clone https://github.com/AntonellaCatanzano/TSGTaskBoardChallenge)](https://github.com/AntonellaCatanzano/TSGTaskBoardChallenge.git
-   - Abrir la `.sln` en Visual Studio 2022
+   - git clone https://github.com/AntonellaCatanzano/TSGTaskBoardChallenge.git
+   - Abrir la `.sln` en Visual Studio 2022  
 
 2. Restaurar paquetes:
    - __Build > Restore NuGet Packages__ o compilar la solución
@@ -95,8 +95,10 @@ Arranque local (rápido)
      - dotnet ef database update -p TSGTaskBoard.DataAccess -s TSGTaskBoard.API
 
 5. Ejecutar:
-   - Iniciar `TSGTaskBoard.API` y `TSGTaskBoard.UI`.
+   - Iniciar `TSGTaskBoard.API` y `TSGTaskBoard.UI`. 
    - Swagger UI normalmente en `https://localhost:{PUERTO}/swagger`
+   - Aclaración: Una vez ejecutado mirar el puerto donde se ejecuta el API (Backend) y cambiarlo en appsettings.json (y también en el Development de la capa UI para que apunte al backend).
+     Localmente en mi PC es API: 7045 y UI: 7010
 
 Comandos útiles (resumen)
 -------------------------
