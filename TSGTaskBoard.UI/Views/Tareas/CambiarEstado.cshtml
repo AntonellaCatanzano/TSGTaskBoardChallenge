@@ -1,0 +1,21 @@
+﻿@model TSGTaskBoard.UI.Models.CambiarEstadoTareaViewModel
+@{
+    ViewData["Title"] = "Cambiar Estado";
+    var tareaId = ViewBag.TareaId;
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="CambiarEstado" method="post">
+    <div class="mb-3">
+        <label asp-for="Estado" class="form-label"></label>
+        <select asp-for="Estado" class="form-select">
+            <option value="Backlog">Backlog</option>
+            <option value="ToDo">ToDo</option>
+            <option value="InProgress">InProgress</option>
+            <option value="Done">Done</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

@@ -1,0 +1,6 @@
+@TSGTaskBoard.API_HostAddress = http://localhost:5162
+
+GET {{TSGTaskBoard.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,135 @@
+﻿@model TSGTaskBoard.UI.Models.KanbanDashboardViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center p-5">
+    <h1 class="display-4">Bienvenido</h1>
+    <h4 class="fs-4">Aplicación de Gestión de Tareas</h4>
+
+    <div class="text-center m-5">
+        <p class="fs-4">Proyecto desarrollado para TSG </p>
+        <p class="fs-4">Backend desarrollado con .NET 8 y C# con un Web Api </p>
+        <p class="fs-4">Base de Datos SQL Lite </p>
+        <p class="fs-4">Frontend desarrollado con MVC y Bootstrap 5.3.8</p>
+    </div>
+
+    <div class="mb-4">
+        <a class="btn btn-success btn-lg" asp-controller="Tareas" asp-action="Create">Crear nueva tarea</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <h4>Backlog</h4>
+        <div class="kanban-column p-2 shadow p-3 mb-5 bg-body-tertiary rounded" id="Backlog">
+            @foreach (var tarea in Model.Backlog)
+            {
+                <div class="card mb-2 kanban-card" data-id="@tarea.Id">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary fw-light"><b class="text-body-secondary fw-bold">Título:</b> @tarea.Titulo</h5>
+                        <p class="card-text"><b>Descripción:</b> @tarea.Descripcion</p>
+                        <p><b>Categoría:</b> @tarea.Categoria</p>
+                        <small class="text-muted"><b>Fecha de Inicio:</b> @tarea.FechaInicio.ToString("dd/MM/yyyy")</small><br>
+                        <small class="text-muted"><b>Fecha de Vencimiento:</b> @tarea.FechaVencimiento?.ToString("dd/MM/yyyy")</small><br>
+                        <div class="mt-2 d-flex justify-content-between my-3">
+                            <a class="btn btn-sm btn-primary" asp-controller="Tareas" asp-action="Edit" asp-route-id="@tarea.Id">Editar</a>
+                            <form asp-controller="Tareas" asp-action="Delete" asp-route-id="@tarea.Id" method="post" onsubmit="return confirm('¿Estás seguro que deseas eliminar esta tarea?');">
+                                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <h4>To Do</h4>
+        <div class="kanban-column p-2 shadow p-3 mb-5 bg-body-tertiary rounded" id="ToDo">
+            @foreach (var tarea in Model.ToDo)
+            {
+                <div class="card mb-2 kanban-card shadow p-3 mb-5 bg-body-tertiary rounded" data-id="@tarea.Id">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary fw-light"><b class="text-body-secondary fw-bold">Título:</b> @tarea.Titulo</h5>
+                            <p class="card-text"><b>Descripción:</b> @tarea.Descripcion</p>
+                            <p><b>Categoría:</b> @tarea.Categoria</p>
+                            <small class="text-muted"><b>Fecha de Inicio:</b> @tarea.FechaInicio.ToString("dd/MM/yyyy")</small><br>
+                            <small class="text-muted"><b>Fecha de Vencimiento:</b> @tarea.FechaVencimiento?.ToString("dd/MM/yyyy")</small><br>
+                        <div class="mt-2 d-flex justify-content-between my-3">
+                            <a class="btn btn-sm btn-primary" asp-controller="Tareas" asp-action="Edit" asp-route-id="@tarea.Id">Editar</a>
+                            <form asp-controller="Tareas" asp-action="Delete" asp-route-id="@tarea.Id" method="post" onsubmit="return confirm('¿Estás seguro que deseas eliminar esta tarea?');">
+                                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <h4>In Progress</h4>
+        <div class="kanban-column p-2 shadow p-3 mb-5 bg-body-tertiary rounded" id="InProgress">
+            @foreach (var tarea in Model.InProgress)
+            {
+                <div class="card mb-2 kanban-card" data-id="@tarea.Id">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary fw-light"><b class="text-body-secondary fw-bold">Título:</b> @tarea.Titulo</h5>
+                        <p class="card-text"><b>Descripción:</b> @tarea.Descripcion</p>
+                        <p><b>Categoría:</b> @tarea.Categoria</p>
+                        <small class="text-muted"><b>Fecha de Inicio:</b> @tarea.FechaInicio.ToString("dd/MM/yyyy")</small><br>
+                        <small class="text-muted"><b>Fecha de Vencimiento:</b> @tarea.FechaVencimiento?.ToString("dd/MM/yyyy")</small><br>
+                        <div class="mt-2 d-flex justify-content-between my-3">
+                            <a class="btn btn-sm btn-primary" asp-controller="Tareas" asp-action="Edit" asp-route-id="@tarea.Id">Editar</a>
+                            <form asp-controller="Tareas" asp-action="Delete" asp-route-id="@tarea.Id" method="post" onsubmit="return confirm('¿Estás seguro que deseas eliminar esta tarea?');">
+                                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <h4>Done</h4>
+        <div class="kanban-column p-2 shadow p-3 mb-5 bg-body-tertiary rounded" id="Done">
+            @foreach (var tarea in Model.Done)
+            {
+                <div class="card mb-2 kanban-card" data-id="@tarea.Id">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary fw-light"><b class="text-body-secondary fw-bold">Título:</b> @tarea.Titulo</h5>
+                        <p class="card-text"><b>Descripción:</b> @tarea.Descripcion</p>
+                        <p><b>Categoría:</b> @tarea.Categoria</p>
+                        <small class="text-muted"><b>Fecha de Inicio:</b> @tarea.FechaInicio.ToString("dd/MM/yyyy")</small><br>
+                        <small class="text-muted"><b>Fecha de Vencimiento:</b> @tarea.FechaVencimiento?.ToString("dd/MM/yyyy")</small><br>
+                        <div class="mt-2 d-flex justify-content-between my-3">
+                            <a class="btn btn-sm btn-primary" asp-controller="Tareas" asp-action="Edit" asp-route-id="@tarea.Id">Editar</a>
+                            <form asp-controller="Tareas" asp-action="Delete" asp-route-id="@tarea.Id" method="post" onsubmit="return confirm('¿Estás seguro que deseas eliminar esta tarea?');">
+                                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script>
+        document.querySelectorAll('.kanban-column').forEach(column => {
+            new Sortable(column, {
+                group: 'kanban',
+                animation: 150,
+                ghostClass: 'bg-light',
+                onEnd: function (evt) {
+                    console.log(`Tarea movida: id=${evt.item.dataset.id}, desde columna ${evt.from.id} a columna ${evt.to.id}`);
+                }
+            });
+        });
+    </script>
+}

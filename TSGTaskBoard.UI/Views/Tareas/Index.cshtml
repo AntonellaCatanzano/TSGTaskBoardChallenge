@@ -1,0 +1,77 @@
+﻿@model List<TSGTaskBoard.UI.Models.TareaViewModel>
+@{
+    ViewData["Title"] = "Tablero de Tareas";
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">    
+    @foreach (var estado in new[] { "Backlog", "ToDo", "InProgress", "Done" })
+    {
+        <div class="col-md-3">
+            <h5>@estado</h5>
+            <div class="kanban-column border p-2 bg-light shadow p-3 mb-5 bg-body-tertiary rounded" data-estado="@estado" 
+                 ondrop="drop(event)" ondragover="allowDrop(event)">
+                @foreach (var tarea in Model.Where(t => t.Estado == estado))
+                {
+                    <div class="card mb-2 kanban-card" draggable="true" 
+                         ondragstart="drag(event)" id="tarea-@tarea.Id">
+                        <div class="card-body">
+                            <h5 class="card-title text-secondary fw-light"><b class="text-body-secondary fw-bold">Título:</b> @tarea.Titulo</h5>
+                            <p class="card-text"><b>Descripción:</b> @tarea.Descripcion</p>
+                            <p><b>Categoría:</b> @tarea.Categoria</p>
+                            <small class="text-muted"><b>Fecha de Inicio:</b> @tarea.FechaInicio.ToString("dd/MM/yyyy")</small><br>
+                            <small class="text-muted"><b>Fecha de Vencimiento:</b> @tarea.FechaVencimiento?.ToString("dd/MM/yyyy")</small><br>
+                            <div class="mt-2 d-flex justify-content-between my-3">
+                                <a asp-action="Edit" asp-route-id="@tarea.Id" class="btn btn-sm btn-primary mt-1">Editar</a>
+                                <a asp-action="Delete" asp-route-id="@tarea.Id" class="btn btn-sm btn-danger mt-1">Eliminar</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+<script>    
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        var card = document.getElementById(data);
+        var column = ev.currentTarget;
+        column.appendChild(card);
+        
+        var tareaId = data.replace("tarea-", "");
+        var nuevoEstado = column.getAttribute("data-estado");
+
+        fetch(`/Tareas/CambiarEstadoAjax/${tareaId}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ Estado: nuevoEstado })
+        }).then(res => {
+            if (!res.ok) alert("Error al actualizar el estado");
+        });
+    }
+</script>
+<style>
+    .kanban-column {
+        min-height: 300px;
+        border-radius: 5px;
+    }
+    .kanban-card {
+        cursor: grab;
+    }
+</style>
+}
