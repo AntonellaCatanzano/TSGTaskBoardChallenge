@@ -77,7 +77,7 @@ Requisitos previos
 Arranque local (rápido)
 -----------------------
 1. Clona y abre la solución:
-   - git clone [<repo>](https://github.com/AntonellaCatanzano/TSGTaskBoardChallenge)
+   - git clone https://github.com/AntonellaCatanzano/TSGTaskBoardChallenge)](https://github.com/AntonellaCatanzano/TSGTaskBoardChallenge.git
    - Abrir la `.sln` en Visual Studio 2022
 
 2. Restaurar paquetes:
